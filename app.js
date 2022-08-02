@@ -1,9 +1,11 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const connectDB = require("./config/db");
 const colors = require("colors"); // this package using only for development console coloring text.
 const { errorHandler, notFound } = require("./middleware/errorMiddleware");
+const userRoutes = require("./routes/userRoutes");
 const app = express();
 app.use(cors());
 dotenv.config();
@@ -14,8 +16,15 @@ app.use(express.json());
 connectDB();
 
 app.get("/", (req, res) => {
-  res.status(200).send("Everything okay. I am from chat application.");
+  res
+    .status(200)
+    .send(
+      "Everything okay. I am from  Interior Exterior Design System application."
+    );
 });
+// user api
+app.use("/api/user", userRoutes);
+
 // error handling
 app.use(notFound);
 app.use(errorHandler);
