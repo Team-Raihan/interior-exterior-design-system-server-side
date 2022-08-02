@@ -6,6 +6,7 @@ const connectDB = require("./config/db");
 const colors = require("colors"); // this package using only for development console coloring text.
 const { errorHandler, notFound } = require("./middleware/errorMiddleware");
 const userRoutes = require("./routes/userRoutes");
+const reviewRoutes = require("./routes/reviews.Route");
 const app = express();
 app.use(cors());
 dotenv.config();
@@ -24,6 +25,8 @@ app.get("/", (req, res) => {
 });
 // user api
 app.use("/api/user", userRoutes);
+// review api
+app.use("/api/review",reviewRoutes);
 
 // error handling
 app.use(notFound);
