@@ -2,10 +2,13 @@ const express = require("express");
 const {
   addNewItems,
   getAllItems,
+  getItemsByID,
 } = require("../controllers/featuresItem.Controllers");
 
 const router = express.Router();
 
-router.route("/").post(addNewItems).get(getAllItems);
+router.post("/",addNewItems);
+router.get("/",getAllItems);
+router.get("/:id",getItemsByID);
 
 module.exports = router;

@@ -38,5 +38,20 @@ const getAllItems = asyncHandler(async (req, res) => {
   const result = await FeaturedItem.find(query);
   res.send(result);
 });
+//@description     Get all Reviews
+//@route           GET /api/review/
+//@access          Public
+const getItemsByID = asyncHandler(async (req, res) => {
+  
 
-module.exports = { addNewItems, getAllItems };
+  try {
+    const _id = req.params.id;
+    const item = await FeaturedItem.findOne({ _id });
+    res.status(200).send(item);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+
+});
+
+module.exports = { addNewItems, getAllItems, getItemsByID };
