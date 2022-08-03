@@ -8,6 +8,7 @@ const { errorHandler, notFound } = require("./middleware/errorMiddleware");
 const userRoutes = require("./routes/userRoutes");
 const reviewRoutes = require("./routes/reviews.Route");
 const featuredRoutes = require("./routes/featuresItem.Route");
+const newsRoutes = require("./routes/news.Route");
 const app = express();
 app.use(cors());
 dotenv.config();
@@ -29,6 +30,7 @@ app.use("/api/user", userRoutes);
 // review api
 app.use("/api/review", reviewRoutes);
 app.use("/api/featured-item", featuredRoutes);
+app.use("/api/news", newsRoutes);
 
 // error handling
 app.use(notFound);
