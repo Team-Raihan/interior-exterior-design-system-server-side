@@ -10,7 +10,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (!name || !email || !password) {
     res.status(400);
-    throw new Error("Please Enter all the Feilds");
+    throw new Error("Please Enter all the Fields");
   }
 
   const userExists = await User.findOne({ email });
@@ -62,5 +62,26 @@ const authUser = asyncHandler(async (req, res) => {
     throw new Error("Invalid Email or Password");
   }
 });
+//@description     Auth the user
+//@route           POST /api/users/login
+//@access          Public
+const verifyAdmin = asyncHandler(async (req, res, next) => {
+  const requester = req.params.email;
+  const requesterAccount = await User.findOne({
+      email: requester,
+  });
+  if (requesterAccount?.isAdmin) {
+    const isAdmin = requesterAccount.isAdmin===true
+    console.log(isAdmin);
+    res.send({ admin: isAdmin });
 
-module.exports = { registerUser, authUser };
+     res.status(200).send({isAdmin:true})
+  } else {
+    res.status(401);
+    throw new Error("You are not an Admin!")
+  }
+
+
+});
+
+module.exports = { registerUser, authUser,verifyAdmin };
