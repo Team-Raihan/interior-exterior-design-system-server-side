@@ -5,6 +5,7 @@ const OrderCollection = require("../models/order.Model");
 //@route           POST /api/review/
 //@access          Private
 const addNewOrder = asyncHandler(async (req, res) => {
+  console.log(req.body);
   const {
     productName,
     productImg,
@@ -15,7 +16,15 @@ const addNewOrder = asyncHandler(async (req, res) => {
     billingInfo,
   } = req.body;
 
-  if (!img || !category) {
+  if (
+    !productName ||
+    !productImg ||
+    !orderTotal ||
+    !buyerName ||
+    !buyerEmail ||
+    !buyerPhone ||
+    !billingInfo
+  ) {
     res.status(400);
     throw new Error("Please Enter all the Fields");
   }
@@ -89,11 +98,21 @@ const UpdatePayment = () =>
           transactionId: payment.transactionId,
         },
       };
-      const result = await OrderCollection.updateOne(filter, updateDoc,options);
+      const result = await OrderCollection.updateOne(
+        filter,
+        updateDoc,
+        options
+      );
       res.send(result);
     } catch (error) {
       return res.send({ message: "Data not found" });
     }
   });
 
-module.exports = { addNewOrder, getAllOrders, getOrderByID, deleteOrderByID, UpdatePayment};
+module.exports = {
+  addNewOrder,
+  getAllOrders,
+  getOrderByID,
+  deleteOrderByID,
+  UpdatePayment,
+};
