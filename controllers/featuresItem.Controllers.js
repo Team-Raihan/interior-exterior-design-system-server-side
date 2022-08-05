@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const FeaturedItem = require("../models/featuresItem.Model");
-const Review = require("../models/reviews.Model");
+
 
 //@description     Add New new Review
 //@route           POST /api/review/
@@ -39,7 +39,7 @@ const addNewItems = asyncHandler(async (req, res) => {
 //@access          Public
 const getAllItems = asyncHandler(async (req, res) => {
   const query = {};
-  const result = await (await FeaturedItem.find(query)).reverse();
+  const result = (await FeaturedItem.find(query)).reverse();
   res.send(result);
 });
 //@description     Get all Reviews
