@@ -10,6 +10,7 @@ const reviewRoutes = require("./routes/reviews.Route");
 const featuredRoutes = require("./routes/featuresItem.Route");
 const newsRoutes = require("./routes/news.Route");
 const orderRoutes = require("./routes/order.Route");
+const contactRoutes = require("./routes/contact.Route");
 const app = express();
 app.use(cors());
 dotenv.config();
@@ -30,6 +31,7 @@ app.get("/", (req, res) => {
 app.use("/api/user", userRoutes);
 // review api
 app.use("/api/review", reviewRoutes);
+app.use("/api/contact", contactRoutes);
 app.use("/api/featured-item", featuredRoutes);
 app.use("/api/news", newsRoutes);
 app.use("/api/order", orderRoutes);
