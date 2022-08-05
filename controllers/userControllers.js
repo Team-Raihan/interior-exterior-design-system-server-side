@@ -65,23 +65,17 @@ const authUser = asyncHandler(async (req, res) => {
 //@description     Auth the user
 //@route           POST /api/users/login
 //@access          Public
-const verifyAdmin = asyncHandler(async (req, res, next) => {
+const verifyAdmin = asyncHandler(async (req, res) => {
   const requester = req.params.email;
   const requesterAccount = await User.findOne({
-      email: requester,
+    email: requester,
   });
-  if (requesterAccount?.isAdmin) {
-    const isAdmin = requesterAccount.isAdmin===true
-    console.log(isAdmin);
+  if (requesterAccount?.email) {
+    const isAdmin = requesterAccount.isAdmin;
     res.send({ admin: isAdmin });
-
-     res.status(200).send({isAdmin:true})
   } else {
-    res.status(401);
-    throw new Error("You are not an Admin!")
+    res.status(401).send({ message:"Unauthorized User", admin: false });
   }
-
-
 });
 
-module.exports = { registerUser, authUser,verifyAdmin };
+module.exports = { registerUser, authUser, verifyAdmin };

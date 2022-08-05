@@ -5,28 +5,23 @@ const Review = require("../models/reviews.Model");
 //@route           POST /api/review/
 //@access          Public
 const addNewReview = asyncHandler(async (req, res) => {
-  const { img, name, occupation, review } = req.body;
+  const { img, name, occupation, review ,rate } = req.body;
 
-  if (!name || !occupation || !review) {
+  if (!name || !occupation || !review ||!rate) {
     res.status(400);
     throw new Error("Please Enter all the Fields");
   }
 
-  const newReview = await User.create({
+  const newReview = await Review.create({
     img,
     name,
-    occupation,
     review,
+    occupation,
+    rate
   });
 
   if (newReview) {
-    res.status(201).json({
-      _id: newReview._id,
-      img: newReview.img,
-      name: newReview.name,
-      occupation: newReview.occupation,
-      review: newReview.review,
-    });
+    res.status(201).send(newReview)
   } else {
     res.status(400);
     throw new Error("Something Went Wrong!");
