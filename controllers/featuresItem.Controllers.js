@@ -6,8 +6,7 @@ const Review = require("../models/reviews.Model");
 //@route           POST /api/review/
 //@access          Public
 const addNewItems = asyncHandler(async (req, res) => {
-  const { img, category, description, adminName, adminEmail,price } = req.body;
-  console.log(req.body);
+  const { img, category, description, adminName, adminEmail, price } = req.body;
 
   if (!img || !category) {
     res.status(400);
@@ -20,7 +19,7 @@ const addNewItems = asyncHandler(async (req, res) => {
     description,
     adminName,
     adminEmail,
-    price
+    price,
   });
 
   if (newFeaturedItem) {
@@ -40,7 +39,7 @@ const addNewItems = asyncHandler(async (req, res) => {
 //@access          Public
 const getAllItems = asyncHandler(async (req, res) => {
   const query = {};
-  const result = await FeaturedItem.find(query);
+  const result = await (await FeaturedItem.find(query)).reverse();
   res.send(result);
 });
 //@description     Get all Reviews
