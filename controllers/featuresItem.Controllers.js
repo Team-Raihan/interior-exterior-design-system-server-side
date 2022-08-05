@@ -54,5 +54,18 @@ const getItemsByID = asyncHandler(async (req, res) => {
     res.status(500).send(error.message);
   }
 });
+//@description     Get all Reviews
+//@route           GET /api/review/
+//@access          Public
+const deleteItemByID = asyncHandler(async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const item = await FeaturedItem.deleteOne({ _id });
+    res.status(200).send(item);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
-module.exports = { addNewItems, getAllItems, getItemsByID };
+
+module.exports = { addNewItems, getAllItems, getItemsByID,deleteItemByID};
