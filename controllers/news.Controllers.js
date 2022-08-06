@@ -38,7 +38,7 @@ const addNews = asyncHandler(async (req, res) => {
 //@access          Public
 const getAllNews = asyncHandler(async (req, res) => {
   const query = {};
-  const result = await News.find(query);
+  const result = (await News.find(query)).reverse();
   res.send(result);
 });
 

@@ -8,10 +8,10 @@ const addNewOrder = asyncHandler(async (req, res) => {
   console.log(req.body);
   const {
     productName,
+    buyerEmail,
     productImg,
     orderTotal,
     buyerName,
-    buyerEmail,
     buyerPhone,
     billingInfo,
   } = req.body;
@@ -62,10 +62,10 @@ const getAllOrders = asyncHandler(async (req, res) => {
 //@description     Get all Reviews
 //@route           GET /api/review/
 //@access          Private
-const getOrderByID = asyncHandler(async (req, res) => {
+const getOrderByEmail = asyncHandler(async (req, res) => {
   try {
-    const _id = req.params.id;
-    const item = await OrderCollection.findOne({ _id });
+    const email = req.params.email;
+    const item = await OrderCollection.find({email: email });
     res.status(200).send(item);
   } catch (error) {
     res.status(500).send(error.message);
@@ -112,7 +112,7 @@ const UpdatePayment = () =>
 module.exports = {
   addNewOrder,
   getAllOrders,
-  getOrderByID,
+  getOrderByEmail,
   deleteOrderByID,
   UpdatePayment,
 };
