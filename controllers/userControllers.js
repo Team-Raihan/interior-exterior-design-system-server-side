@@ -74,8 +74,38 @@ const verifyAdmin = asyncHandler(async (req, res) => {
     const isAdmin = requesterAccount.isAdmin;
     res.send({ admin: isAdmin });
   } else {
-    res.status(401).send({ message:"Unauthorized User", admin: false });
+    res.status(401).send({ message: "Unauthorized User", admin: false });
   }
 });
 
-module.exports = { registerUser, authUser, verifyAdmin };
+//@description    All user
+//@route           Get /api/users
+//@access          Public
+
+const getAllUser = asyncHandler(async (req, res) => {
+  const query = {};
+  const result = (await userCollection.find(query)).reverse();
+  res.send(result);
+});
+
+//@description     user
+//@route           Delete /api/users
+//@access          Public
+
+const deleteUserByID = asyncHandler(async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const item = await userCollection.deleteOne({ _id });
+    res.status(200).send(item);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+module.exports = {
+  registerUser,
+  authUser,
+  verifyAdmin,
+  getAllUser,
+  deleteUserByID,
+};
