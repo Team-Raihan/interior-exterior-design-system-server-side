@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 
 const newsSchema = mongoose.Schema({
-  img: { type: "String", required: true },
-  name: { type: "String", required: true },
   title: { type: "String", required: true },
-  date: { type: Date, default: Date.now },
+  img: { type: "String", required: true },
+  date: { type: "String", required: true },
   news: { type: "String", required: true },
 });
 

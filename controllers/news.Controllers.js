@@ -5,27 +5,27 @@ const News = require("../models/news.Model");
 //@route           POST /api/review/
 //@access          Public
 const addNews = asyncHandler(async (req, res) => {
-  const { img, name, occupation, review } = req.body;
+  const { title, img, news, date } = req.body;
 
-  if (!name || !occupation || !review) {
+  if (!title || !img || !news) {
     res.status(400);
     throw new Error("Please Enter all the Fields");
   }
 
-  const newReview = await User.create({
+  const newNews = await News.create({
+    title,
     img,
-    name,
-    occupation,
-    review,
+    news,
+    date,
   });
 
-  if (newReview) {
+  if (newNews) {
     res.status(201).json({
-      _id: newReview._id,
-      img: newReview.img,
-      name: newReview.name,
-      occupation: newReview.occupation,
-      review: newReview.review,
+      _id: newNews._id,
+      img: newNews.img,
+      name: newNews.name,
+      occupation: newNews.occupation,
+      review: newNews.review,
     });
   } else {
     res.status(400);
@@ -55,4 +55,17 @@ const getNewsByID = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { addNews, getAllNews, getNewsByID };
+//@description     Get all Reviews
+//@route           GET /api/review/
+//@access          Private
+const deleteNewsByID = asyncHandler(async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const item = await News.deleteOne({ _id });
+    res.status(200).send(item);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+module.exports = { addNews, getAllNews, getNewsByID, deleteNewsByID };
