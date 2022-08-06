@@ -84,7 +84,7 @@ const verifyAdmin = asyncHandler(async (req, res) => {
 
 const getAllUser = asyncHandler(async (req, res) => {
   const query = {};
-  const result = (await userCollection.find(query)).reverse();
+  const result = (await User.find(query)).reverse();
   res.send(result);
 });
 
@@ -95,7 +95,7 @@ const getAllUser = asyncHandler(async (req, res) => {
 const deleteUserByID = asyncHandler(async (req, res) => {
   try {
     const _id = req.params.id;
-    const item = await userCollection.deleteOne({ _id });
+    const item = await User.deleteOne({ _id });
     res.status(200).send(item);
   } catch (error) {
     res.status(500).send(error.message);
