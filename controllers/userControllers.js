@@ -101,6 +101,19 @@ const deleteUserByID = asyncHandler(async (req, res) => {
     res.status(500).send(error.message);
   }
 });
+//@description     user
+//@route           get /api/users
+//@access          Private
+
+const getUserById = asyncHandler(async (req, res) => {
+  try {
+    const email = req.params.email;
+    const item = await User.findOne({ email });
+    res.status(200).send(item);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
 //@description     user
 //@route           Delete /api/users
@@ -112,7 +125,7 @@ const updateUserByEmail = asyncHandler(async (req, res) => {
     const filter = { email };
     const { occupation, phoneNumber, postCode, city, billingAddress } =
       req.body;
-      console.log(req.body);
+    console.log(req.body);
     console.log(occupation, phoneNumber, postCode, city, billingAddress);
 
     const options = { upsert: true };
@@ -139,4 +152,5 @@ module.exports = {
   getAllUser,
   deleteUserByID,
   updateUserByEmail,
+  getUserById,
 };
