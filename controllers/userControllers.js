@@ -4,7 +4,7 @@ const generateToken = require("../config/generateToken");
 
 //@description     Register new user
 //@route           POST /api/user/
-//@access          Public
+//@access          Private
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, pic } = req.body;
 
@@ -44,7 +44,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 //@description     Auth the user
 //@route           POST /api/users/login
-//@access          Public
+//@access          Private
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
@@ -64,7 +64,7 @@ const authUser = asyncHandler(async (req, res) => {
 });
 //@description     Auth the user
 //@route           POST /api/users/login
-//@access          Public
+//@access          Private
 const verifyAdmin = asyncHandler(async (req, res) => {
   const requester = req.params.email;
   const requesterAccount = await User.findOne({
@@ -80,7 +80,7 @@ const verifyAdmin = asyncHandler(async (req, res) => {
 
 //@description    All user
 //@route           Get /api/users
-//@access          Public
+//@access          Private
 
 const getAllUser = asyncHandler(async (req, res) => {
   const query = {};
@@ -90,7 +90,7 @@ const getAllUser = asyncHandler(async (req, res) => {
 
 //@description     user
 //@route           Delete /api/users
-//@access          Public
+//@access          Private
 
 const deleteUserByID = asyncHandler(async (req, res) => {
   try {
@@ -102,10 +102,41 @@ const deleteUserByID = asyncHandler(async (req, res) => {
   }
 });
 
+//@description     user
+//@route           Delete /api/users
+//@access          Private
+
+const updateUserByEmail = asyncHandler(async (req, res) => {
+  try {
+    const email = req.params.email;
+    const filter = { email };
+    const { occupation, phoneNumber, postCode, city, billingAddress } =
+      req.body;
+      console.log(req.body);
+    console.log(occupation, phoneNumber, postCode, city, billingAddress);
+
+    const options = { upsert: true };
+    const updateDoc = {
+      $set: {
+        occupation,
+        phoneNumber,
+        postCode,
+        city,
+        billingAddress,
+      },
+    };
+    const result = await User.updateOne(filter, updateDoc, options);
+    res.status(201).send(result);
+  } catch (error) {
+    return res.send({ message: "Data not found" });
+  }
+});
+
 module.exports = {
   registerUser,
   authUser,
   verifyAdmin,
   getAllUser,
   deleteUserByID,
+  updateUserByEmail,
 };
