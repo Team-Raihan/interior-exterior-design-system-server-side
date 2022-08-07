@@ -5,7 +5,6 @@ const OrderCollection = require("../models/order.Model");
 //@route           POST /api/review/
 //@access          Private
 const addNewOrder = asyncHandler(async (req, res) => {
-  console.log(req.body);
   const {
     productName,
     buyerEmail,
@@ -65,7 +64,7 @@ const getAllOrders = asyncHandler(async (req, res) => {
 const getOrderByEmail = asyncHandler(async (req, res) => {
   try {
     const email = req.params.email;
-    const item = await OrderCollection.find({buyerEmail: email });
+    const item = await OrderCollection.find({ buyerEmail: email });
     res.status(200).send(item);
   } catch (error) {
     res.status(500).send(error.message);
@@ -83,31 +82,44 @@ const deleteOrderByID = asyncHandler(async (req, res) => {
     res.status(500).send(error.message);
   }
 });
+//@description     Get all Reviews
+//@route           GET /api/review/
+//@access          Private
+const getOrderByDetailsID = asyncHandler(async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const item = await OrderCollection.findOne({ _id });
+    res.status(200).send(item);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
-const UpdatePayment = () =>
-  asyncHandler(async (req, res) => {
-    const id = req.params.id;
-    const payment = req.body;
-    try {
-      const filter = { _id: ObjectId(id) };
+//@description     Get all Reviews
+//@route           GET /api/review/
+//@access          Private
+const UpdatePayment = asyncHandler(async (req, res) => {
+  try {
+    const _id = req.params.orderId;
+    const filter = { _id };
+    const payment = req.body.payment;
 
-      const options = { upsert: true };
-      const updateDoc = {
-        $set: {
-          paid: true,
-          transactionId: payment.transactionId,
-        },
-      };
-      const result = await OrderCollection.updateOne(
-        filter,
-        updateDoc,
-        options
-      );
-      res.send(result);
-    } catch (error) {
-      return res.send({ message: "Data not found" });
-    }
-  });
+    const options = { upsert: true };
+    const updateDoc = {
+      $set: {
+        transactionId: payment.transactionId
+          ? payment.transactionId
+          : "not found",
+        paid: true,
+        orderId: payment.orderId ? payment.orderId : "not found",
+      },
+    };
+    const result = await OrderCollection.updateOne(filter, updateDoc, options);
+    res.status(201).send(result);
+  } catch (error) {
+    return res.send({ message: "Data not found" });
+  }
+});
 
 module.exports = {
   addNewOrder,
@@ -115,4 +127,5 @@ module.exports = {
   getOrderByEmail,
   deleteOrderByID,
   UpdatePayment,
+  getOrderByDetailsID,
 };

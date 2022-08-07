@@ -7,6 +7,9 @@ const orderSchema = mongoose.Schema({
   buyerEmail: { type: "String", required: true },
   buyerPhone: { type: "String", required: true },
   billingInfo: { type: "String", required: true },
+  transactionId: { type: "String", required: false },
+  orderId: { type: "String", required: false },
+  paid: { type: Boolean, required: false },
 });
 
 const OrderCollection = mongoose.model("order", orderSchema);
