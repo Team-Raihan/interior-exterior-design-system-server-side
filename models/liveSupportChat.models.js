@@ -1,11 +1,8 @@
 const mongoose = require("mongoose");
 
 const liveSupportChatSchema = mongoose.Schema({
-  img: { type: "String", required: true },
-  name: { type: "String", required: true },
-  title: { type: "String", required: true },
-  date: { type: Date, default: Date.now },
-  news: { type: "String", required: true },
+  isOpen: { type: Boolean, required: false },
+  link: { type: "String", required: false },
 });
 
 const LiveSupportCollection = mongoose.model("live-support-chat", liveSupportChatSchema);

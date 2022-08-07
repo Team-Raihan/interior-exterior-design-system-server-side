@@ -1,10 +1,11 @@
 const express = require("express");
-const { getChatByEmail, addNewChat, getAllChat } = require("../controllers/liveSupportChat.controllers");
+const { addLiveSupport, getSupport } = require("../controllers/liveSupportChat.controllers");
+
 
 const router = express.Router();
 
-router.post("/", addNewChat);
-router.get("/", getAllChat);
-router.get("/:id", getChatByEmail);
+router.patch("/", addLiveSupport);
+router.get("/", getSupport);
+
 
 module.exports = router;

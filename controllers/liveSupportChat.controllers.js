@@ -1,58 +1,42 @@
 const asyncHandler = require("express-async-handler");
-const News = require("../models/news.Model");
+const LiveSupportCollection = require("../models/liveSupportChat.models");
 
-//@description     Add New new Review
-//@route           POST /api/review/
-//@access          Public
-const addNewChat = asyncHandler(async (req, res) => {
-  const { img, name, occupation, review } = req.body;
-
-  if (!name || !occupation || !review) {
-    res.status(400);
-    throw new Error("Please Enter all the Fields");
-  }
-
-  const newReview = await User.create({
-    img,
-    name,
-    occupation,
-    review,
-  });
-
-  if (newReview) {
-    res.status(201).json({
-      _id: newReview._id,
-      img: newReview.img,
-      name: newReview.name,
-      occupation: newReview.occupation,
-      review: newReview.review,
-    });
-  } else {
-    res.status(400);
-    throw new Error("Something Went Wrong!");
-  }
-});
-
-//@description     Get all Reviews
-//@route           GET /api/review/
-//@access          Public
-const getAllChat = asyncHandler(async (req, res) => {
-  const query = {};
-  const result = await News.find(query);
-  res.send(result);
-});
-
-//@description     Get all Reviews
-//@route           GET /api/review/
-//@access          Public
-const getChatByEmail = asyncHandler(async (req, res) => {
+//@description     Add Support
+//@route           PATCH /api/live-support
+//@access          Private
+const addLiveSupport = asyncHandler(async (req, res) => {
   try {
-    const _id = req.params.email;
-    const item = await News.findOne({ _id });
+    const filter = { _id: "62ef6a79ab0294634bf427c7" };
+    const support = req.body;
+
+    const options = { upsert: true };
+    const updateDoc = {
+      $set: {
+        isOpen: support.isOpen ? support.isOpen : false,
+        link: support.link ? support.link : "not available",
+      },
+    };
+    const result = await LiveSupportCollection.updateOne(
+      filter,
+      updateDoc,
+      options
+    );
+    res.status(201).send(result);
+  } catch (error) {
+    return res.send({ message: "Data not found" });
+  }
+});
+
+//@description     Get Support
+//@route           GET /api/live-support
+//@access         Private
+const getSupport = asyncHandler(async (req, res) => {
+  try {
+    const item = await LiveSupportCollection.findOne({ _id: "62ef6a79ab0294634bf427c7" });
     res.status(200).send(item);
   } catch (error) {
     res.status(500).send(error.message);
   }
 });
 
-module.exports = { addNewChat, getAllChat, getChatByEmail};
+module.exports = { addLiveSupport, getSupport };
