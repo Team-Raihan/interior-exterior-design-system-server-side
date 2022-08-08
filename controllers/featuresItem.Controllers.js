@@ -1,7 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const FeaturedItem = require("../models/featuresItem.Model");
 
-
 //@description     Add New new Review
 //@route           POST /api/review/
 //@access          Public
@@ -66,6 +65,41 @@ const deleteItemByID = asyncHandler(async (req, res) => {
     res.status(500).send(error.message);
   }
 });
+//@description     Get all Reviews
+//@route           GET /api/review/
+//@access          Public
+const searchByText = asyncHandler(async (req, res) => {
+  try {
+    const searchText = req.params.text.toString();
+  const query=  `{"category":{$er:"${searchText}"}}`
+  console.log(query);
+    let pipeline = [
+      {
+        $search: {
+          index: "searchItem",
+          text: {
+            query: query,
+            path:"category" ,
+            "fuzzy":{
+              "maxEdits":1
+            },
 
+          },
+        },
+      },
+    ];
+    const item = await FeaturedItem.aggregate(pipeline)
+    res.status(200).send(item);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+ 
+});
 
-module.exports = { addNewItems, getAllItems, getItemsByID,deleteItemByID};
+module.exports = {
+  addNewItems,
+  getAllItems,
+  getItemsByID,
+  deleteItemByID,
+  searchByText,
+};
