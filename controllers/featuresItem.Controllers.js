@@ -71,29 +71,26 @@ const deleteItemByID = asyncHandler(async (req, res) => {
 const searchByText = asyncHandler(async (req, res) => {
   try {
     const searchText = req.params.text.toString();
-  const query=  `{"category":{$er:"${searchText}"}}`
-  console.log(query);
+    const query = `{"category":{$er:"${searchText}"}}`;
     let pipeline = [
       {
         $search: {
           index: "searchItem",
           text: {
             query: query,
-            path:"category" ,
-            "fuzzy":{
-              "maxEdits":1
+            path: "category",
+            fuzzy: {
+              maxEdits: 1,
             },
-
           },
         },
       },
     ];
-    const item = await FeaturedItem.aggregate(pipeline)
+    const item = await FeaturedItem.aggregate(pipeline);
     res.status(200).send(item);
   } catch (error) {
     res.status(500).send(error.message);
   }
- 
 });
 
 module.exports = {

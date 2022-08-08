@@ -54,6 +54,25 @@ const getNewsByID = asyncHandler(async (req, res) => {
     res.status(500).send(error.message);
   }
 });
+//@description     Get all Reviews
+//@route           GET /api/review/
+//@access          Public
+const getNewsByDate = asyncHandler(async (req, res) => {
+  try {
+    const date = req.params.date;
+    const query = { date: date };
+    const result = await News.find(query);
+    if (result.length > 0) {
+      res.status(200).send(result);
+    } else {
+      res.status(200).send({
+        error: "Your Selected Data Have No Task",
+      });
+    }
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
 //@description     Get all Reviews
 //@route           GET /api/review/
@@ -68,4 +87,10 @@ const deleteNewsByID = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { addNews, getAllNews, getNewsByID, deleteNewsByID };
+module.exports = {
+  addNews,
+  getAllNews,
+  getNewsByID,
+  deleteNewsByID,
+  getNewsByDate,
+};

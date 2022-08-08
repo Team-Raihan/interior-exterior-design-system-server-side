@@ -8,7 +8,6 @@ const addLiveSupport = asyncHandler(async (req, res) => {
   try {
     const filter = { _id: "62ef6a79ab0294634bf427c7" };
     const support = req.body;
-
     const options = { upsert: true };
     const updateDoc = {
       $set: {
@@ -32,7 +31,9 @@ const addLiveSupport = asyncHandler(async (req, res) => {
 //@access         Private
 const getSupport = asyncHandler(async (req, res) => {
   try {
-    const item = await LiveSupportCollection.findOne({ _id: "62ef6a79ab0294634bf427c7" });
+    const item = await LiveSupportCollection.findOne({
+      _id: "62ef6a79ab0294634bf427c7",
+    });
     res.status(200).send(item);
   } catch (error) {
     res.status(500).send(error.message);

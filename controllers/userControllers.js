@@ -125,9 +125,6 @@ const updateUserByEmail = asyncHandler(async (req, res) => {
     const filter = { email };
     const { occupation, phoneNumber, postCode, city, billingAddress } =
       req.body;
-    console.log(req.body);
-    console.log(occupation, phoneNumber, postCode, city, billingAddress);
-
     const options = { upsert: true };
     const updateDoc = {
       $set: {
