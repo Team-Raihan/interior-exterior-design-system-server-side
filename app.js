@@ -13,6 +13,7 @@ const orderRoutes = require("./routes/order.Route");
 const contactRoutes = require("./routes/contact.Route");
 const liveSupportRoutes = require("./routes/liveSupportChat.Route");
 const paymentRoutes = require("./routes/payment.Route");
+const socialLoginRoutes = require("./routes/SocialLogin");
 const app = express();
 app.use(cors());
 dotenv.config();
@@ -39,6 +40,7 @@ app.use("/api/news", newsRoutes);
 app.use("/api/order", orderRoutes);
 app.use("/api/live-support", liveSupportRoutes);
 app.use("/api/payment", paymentRoutes);
+app.use("/api/social-login", socialLoginRoutes);
 
 // error handling
 app.use(notFound);
