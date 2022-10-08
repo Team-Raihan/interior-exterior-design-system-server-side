@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
   res
     .status(200)
     .send(
-      "Everything okay. I am from  Interior Exterior Design System application."
+      "Server Started Everything okay. I am from  Interior Exterior Design System application."
     );
 });
 // user api
