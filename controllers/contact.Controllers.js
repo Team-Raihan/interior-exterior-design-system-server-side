@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const ContactCollection = require("../models/Contact.Model");
+const ContactCollection = require("../models/contact.Model");
 
 //@description     Add New new Contact
 //@route           POST /api/review/

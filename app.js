@@ -5,7 +5,7 @@ const cors = require("cors");
 const connectDB = require("./config/db");
 const colors = require("colors"); // this package using only for development console coloring text.
 const { errorHandler, notFound } = require("./middleware/errorMiddleware");
-const userRoutes = require("./routes/userRoutes");
+const userRoutes = require("./routes/users.Route");
 const reviewRoutes = require("./routes/reviews.Route");
 const featuredRoutes = require("./routes/featuresItem.Route");
 const newsRoutes = require("./routes/news.Route");
@@ -13,7 +13,8 @@ const orderRoutes = require("./routes/order.Route");
 const contactRoutes = require("./routes/contact.Route");
 const liveSupportRoutes = require("./routes/liveSupportChat.Route");
 const paymentRoutes = require("./routes/payment.Route");
-const socialLoginRoutes = require("./routes/SocialLogin");
+const socialLoginRoutes = require("./routes/socialLogin.Route");
+const serviceRoutes = require("./routes/service.Route");
 const app = express();
 app.use(cors());
 dotenv.config();
@@ -41,6 +42,7 @@ app.use("/api/order", orderRoutes);
 app.use("/api/live-support", liveSupportRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/social-login", socialLoginRoutes);
+app.use("api/service", serviceRoutes);
 
 // error handling
 app.use(notFound);
