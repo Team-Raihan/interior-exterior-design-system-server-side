@@ -42,7 +42,7 @@ app.use("/api/order", orderRoutes);
 app.use("/api/live-support", liveSupportRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/social-login", socialLoginRoutes);
-app.use("api/service", serviceRoutes);
+app.use("/api/service", serviceRoutes);
 
 // error handling
 app.use(notFound);

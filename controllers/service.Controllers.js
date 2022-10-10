@@ -5,9 +5,11 @@ const Service = require("../models/service.Model");
 //@route           POST /api/service
 //@access          Private
 const addNewService = asyncHandler(async (req, res) => {
-  const newService = req.body;
+  const { img, category, description } = req.body;
   const addedService = await Service.create({
-    newService,
+    img,
+    category,
+    description,
   });
 
   if (addedService) {
