@@ -7,8 +7,6 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const createPaymentIntent = asyncHandler(
     async (req, res) => {
         const order = req.body;
-
-      
         const subTotal = order.orderTotal;
         const amount = subTotal * 100;
         const paymentIntent = await stripe.paymentIntents.create({
