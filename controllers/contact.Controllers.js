@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const ContactCollection = require("../models/contact.Model");
+const ContactsCollection = require("../models/contacts.Model");
 
 //@description     Add New new Contact
 //@route           POST /api/review/
@@ -12,7 +12,7 @@ const addNewContact = asyncHandler(async (req, res) => {
     throw new Error("Please Enter all the Fields");
   }
 
-  const newContact = await ContactCollection.create({
+  const newContact = await ContactsCollection.create({
     name,
     email,
     subject,
@@ -33,7 +33,7 @@ const addNewContact = asyncHandler(async (req, res) => {
 //@access          Public
 const getAllContacts = asyncHandler(async (req, res) => {
   const query = {};
-  const result = (await ContactCollection.find(query)).reverse();
+  const result = (await ContactsCollection.find(query)).reverse();
   res.send(result);
 });
 

@@ -8,6 +8,6 @@ const contactSchema = mongoose.Schema({
   message: { type: "String", required: true },
 });
 
-const ContactCollection = mongoose.model("contact", contactSchema);
+const ContactsCollection = mongoose.model("contact", contactSchema);
 
-module.exports = ContactCollection;
+module.exports = ContactsCollection;
