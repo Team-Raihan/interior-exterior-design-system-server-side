@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const LiveSupportCollection = require("../models/liveSupportChat.Models");
+const LiveSupportCollection = require("../models/live_support_chat.Models");
 
 //@description     Add Support
 //@route           PATCH /api/live-support
