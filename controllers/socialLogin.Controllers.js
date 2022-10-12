@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const SocialLoginCollection = require("../models/SocialLogin.Model");
+const SocialLoginCollection = require("../models/social_login.Model");
 
 
 const SocialLogin = asyncHandler(async (req, res) => {
