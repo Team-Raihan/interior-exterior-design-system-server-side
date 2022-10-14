@@ -1,8 +1,8 @@
 const asyncHandler = require("express-async-handler");
 const OrderCollection = require("../models/order.Model");
 
-//@description     Add New new Review
-//@route           POST /api/review/
+//@description     Add New ORDER
+//@route           POST /api/order/
 //@access          Private
 const addNewOrder = asyncHandler(async (req, res) => {
   const {
@@ -50,16 +50,16 @@ const addNewOrder = asyncHandler(async (req, res) => {
   }
 });
 
-//@description     Get all Reviews
-//@route           GET /api/review/
+//@description     Get All Order from admin panel
+//@route           GET /api/order/
 //@access          Private
 const getAllOrders = asyncHandler(async (req, res) => {
   const query = {};
   const result = (await OrderCollection.find(query)).reverse();
   res.send(result);
 });
-//@description     Get all Reviews
-//@route           GET /api/review/
+//@description     Get a single user orders
+//@route           GET /api/order/:email
 //@access          Private
 const getOrderByEmail = asyncHandler(async (req, res) => {
   try {
@@ -70,8 +70,8 @@ const getOrderByEmail = asyncHandler(async (req, res) => {
     res.status(500).send(error.message);
   }
 });
-//@description     Get all Reviews
-//@route           GET /api/review/
+//@description     DELETE Order by id
+//@route           DELETE /api/order/:id
 //@access          Private
 const deleteOrderByID = asyncHandler(async (req, res) => {
   try {
@@ -82,8 +82,8 @@ const deleteOrderByID = asyncHandler(async (req, res) => {
     res.status(500).send(error.message);
   }
 });
-//@description     Get all Reviews
-//@route           GET /api/review/
+//@description     Get order details by id
+//@route           GET /api/order/details/:id
 //@access          Private
 const getOrderByDetailsID = asyncHandler(async (req, res) => {
   try {
@@ -95,8 +95,8 @@ const getOrderByDetailsID = asyncHandler(async (req, res) => {
   }
 });
 
-//@description     Get all Reviews
-//@route           GET /api/review/
+//@description     Update Payment
+//@route           PATCH /api/order/:orderId
 //@access          Private
 const UpdatePayment = asyncHandler(async (req, res) => {
   try {

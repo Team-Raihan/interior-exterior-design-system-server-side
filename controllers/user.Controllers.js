@@ -43,7 +43,7 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 //@description     Auth the user
-//@route           POST /api/users/login
+//@route           POST /api/user/login
 //@access          Private
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -62,8 +62,8 @@ const authUser = asyncHandler(async (req, res) => {
     throw new Error("Invalid Email or Password");
   }
 });
-//@description     Auth the user
-//@route           POST /api/users/login
+//@description     Verify Admin
+//@route           GET /api/user/admin/:email
 //@access          Private
 const verifyAdmin = asyncHandler(async (req, res) => {
   const requester = req.params.email;
@@ -78,8 +78,8 @@ const verifyAdmin = asyncHandler(async (req, res) => {
   }
 });
 
-//@description    All user
-//@route           Get /api/users
+//@description     All user
+//@route           Get /api/user
 //@access          Private
 
 const getAllUser = asyncHandler(async (req, res) => {
@@ -88,8 +88,8 @@ const getAllUser = asyncHandler(async (req, res) => {
   res.send(result);
 });
 
-//@description     user
-//@route           Delete /api/users
+//@description     Delete User by id
+//@route           Delete /api/user/:id
 //@access          Private
 
 const deleteUserByID = asyncHandler(async (req, res) => {
@@ -101,8 +101,8 @@ const deleteUserByID = asyncHandler(async (req, res) => {
     res.status(500).send(error.message);
   }
 });
-//@description     user
-//@route           get /api/users
+//@description     Get user by ID
+//@route           GET /api/user/:email
 //@access          Private
 
 const getUserById = asyncHandler(async (req, res) => {
@@ -115,8 +115,8 @@ const getUserById = asyncHandler(async (req, res) => {
   }
 });
 
-//@description     user
-//@route           Delete /api/users
+//@description     Update user by email
+//@route           PATCH /api/user/:email
 //@access          Private
 
 const updateUserByEmail = asyncHandler(async (req, res) => {

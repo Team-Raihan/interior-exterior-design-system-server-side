@@ -5,6 +5,9 @@ const liveSupportChatSchema = mongoose.Schema({
   link: { type: "String", required: false },
 });
 
-const LiveSupportCollection = mongoose.model("live-support-chat", liveSupportChatSchema);
+const LiveSupportCollection = mongoose.model(
+  "live-support-chat",
+  liveSupportChatSchema
+);
 
 module.exports = LiveSupportCollection;

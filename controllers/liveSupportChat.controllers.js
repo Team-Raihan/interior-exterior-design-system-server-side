@@ -28,7 +28,7 @@ const addLiveSupport = asyncHandler(async (req, res) => {
 
 //@description     Get Support
 //@route           GET /api/live-support
-//@access         Private
+//@access         Public
 const getSupport = asyncHandler(async (req, res) => {
   try {
     const item = await LiveSupportCollection.findOne({

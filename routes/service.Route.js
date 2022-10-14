@@ -1,6 +1,10 @@
 const express = require("express");
-const { addNewService, getAllServices, getServiceByID, deleteServiceByID } = require("../controllers/service.Controllers");
-
+const {
+  addNewService,
+  getAllServices,
+  getServiceByID,
+  deleteServiceByID,
+} = require("../controllers/service.Controllers");
 
 const router = express.Router();
 

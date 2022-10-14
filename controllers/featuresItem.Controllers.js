@@ -1,9 +1,9 @@
 const asyncHandler = require("express-async-handler");
 const FeaturedItem = require("../models/featuresItem.Model");
 
-//@description     Add New new Review
-//@route           POST /api/review/
-//@access          Public
+//@description     Add New FeaturedItem
+//@route           POST /api/featured-item/
+//@access          Private
 const addNewItems = asyncHandler(async (req, res) => {
   const { img, category, description, adminName, adminEmail, price } = req.body;
 
@@ -33,16 +33,16 @@ const addNewItems = asyncHandler(async (req, res) => {
   }
 });
 
-//@description     Get all Reviews
-//@route           GET /api/review/
+//@description     Get all FeaturedItem
+//@route           GET /api/featured-item/
 //@access          Public
 const getAllItems = asyncHandler(async (req, res) => {
   const query = {};
   const result = (await FeaturedItem.find(query)).reverse();
   res.send(result);
 });
-//@description     Get all Reviews
-//@route           GET /api/review/
+//@description     Get FeaturedItem by id
+//@route           GET /api/featured-item/:id
 //@access          Public
 const getItemsByID = asyncHandler(async (req, res) => {
   try {
@@ -53,9 +53,9 @@ const getItemsByID = asyncHandler(async (req, res) => {
     res.status(500).send(error.message);
   }
 });
-//@description     Get all Reviews
-//@route           GET /api/review/
-//@access          Public
+//@description   Delete featured items by ID
+//@route           DELETE /api/featured-item/id
+//@access          Private
 const deleteItemByID = asyncHandler(async (req, res) => {
   try {
     const _id = req.params.id;
@@ -65,8 +65,8 @@ const deleteItemByID = asyncHandler(async (req, res) => {
     res.status(500).send(error.message);
   }
 });
-//@description     Get all Reviews
-//@route           GET /api/review/
+//@description     Search featured items
+//@route           GET /api/featured-item/search/:text
 //@access          Public
 const searchByText = asyncHandler(async (req, res) => {
   try {

@@ -1,9 +1,9 @@
 const asyncHandler = require("express-async-handler");
 const News = require("../models/news.Model");
 
-//@description     Add New new Review
-//@route           POST /api/review/
-//@access          Public
+//@description     Add News
+//@route           POST /api/news/
+//@access          Private
 const addNews = asyncHandler(async (req, res) => {
   const { title, img, news, date } = req.body;
 
@@ -33,8 +33,8 @@ const addNews = asyncHandler(async (req, res) => {
   }
 });
 
-//@description     Get all Reviews
-//@route           GET /api/review/
+//@description     Get all News
+//@route           GET /api/news/
 //@access          Public
 const getAllNews = asyncHandler(async (req, res) => {
   const query = {};
@@ -42,8 +42,8 @@ const getAllNews = asyncHandler(async (req, res) => {
   res.send(result);
 });
 
-//@description     Get all Reviews
-//@route           GET /api/review/
+//@description     Get a news by id
+//@route           GET /api/news/:id
 //@access          Public
 const getNewsByID = asyncHandler(async (req, res) => {
   try {
@@ -54,8 +54,8 @@ const getNewsByID = asyncHandler(async (req, res) => {
     res.status(500).send(error.message);
   }
 });
-//@description     Get all Reviews
-//@route           GET /api/review/
+//@description     Get News by date filtering
+//@route           GET /api/news/filter/:date
 //@access          Public
 const getNewsByDate = asyncHandler(async (req, res) => {
   try {
@@ -74,8 +74,8 @@ const getNewsByDate = asyncHandler(async (req, res) => {
   }
 });
 
-//@description     Get all Reviews
-//@route           GET /api/review/
+//@description     Delete News
+//@route           DELETE /api/news/:id
 //@access          Private
 const deleteNewsByID = asyncHandler(async (req, res) => {
   try {

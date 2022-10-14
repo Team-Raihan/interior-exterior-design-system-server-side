@@ -1,8 +1,8 @@
 const asyncHandler = require("express-async-handler");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-//@description     Add New new Review
-//@route           POST /api/review/
+//@description     Create Payment Intent
+//@route           POST /api/payment/create-payment-intent
 //@access          Private
 const createPaymentIntent = asyncHandler(
     async (req, res) => {

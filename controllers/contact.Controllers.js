@@ -2,7 +2,7 @@ const asyncHandler = require("express-async-handler");
 const ContactsCollection = require("../models/contacts.Model");
 
 //@description     Add New new Contact
-//@route           POST /api/review/
+//@route           POST /api/contact/
 //@access          Public
 const addNewContact = asyncHandler(async (req, res) => {
   const { name, email, subject, phone, message } = req.body;
@@ -28,9 +28,9 @@ const addNewContact = asyncHandler(async (req, res) => {
   }
 });
 
-//@description     Get all Reviews
-//@route           GET /api/review/
-//@access          Public
+//@description     Get all Contacts
+//@route           GET /api/contact/
+//@access          Private
 const getAllContacts = asyncHandler(async (req, res) => {
   const query = {};
   const result = (await ContactsCollection.find(query)).reverse();

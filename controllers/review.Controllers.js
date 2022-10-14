@@ -3,11 +3,11 @@ const Review = require("../models/reviews.Model");
 
 //@description     Add New new Review
 //@route           POST /api/review/
-//@access          Public
+//@access          Private
 const addNewReview = asyncHandler(async (req, res) => {
-  const { img, name, occupation, review ,rate } = req.body;
+  const { img, name, occupation, review, rate } = req.body;
 
-  if (!name || !occupation || !review ||!rate) {
+  if (!name || !occupation || !review || !rate) {
     res.status(400);
     throw new Error("Please Enter all the Fields");
   }
@@ -17,11 +17,11 @@ const addNewReview = asyncHandler(async (req, res) => {
     name,
     review,
     occupation,
-    rate
+    rate,
   });
 
   if (newReview) {
-    res.status(201).send(newReview)
+    res.status(201).send(newReview);
   } else {
     res.status(400);
     throw new Error("Something Went Wrong!");

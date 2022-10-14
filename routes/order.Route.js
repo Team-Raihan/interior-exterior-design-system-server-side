@@ -1,13 +1,20 @@
 const express = require("express");
-const { addNewOrder, getAllOrders, deleteOrderByID, UpdatePayment, getOrderByEmail, getOrderByDetailsID } = require("../controllers/order.Controllers");
+const {
+  addNewOrder,
+  getAllOrders,
+  deleteOrderByID,
+  UpdatePayment,
+  getOrderByEmail,
+  getOrderByDetailsID,
+} = require("../controllers/order.Controllers");
 
 const router = express.Router();
 
-router.patch("/:orderId",UpdatePayment);
-router.post("/",addNewOrder);
-router.get("/",getAllOrders);
-router.get("/:email",getOrderByEmail);
-router.get("/details/:id",getOrderByDetailsID);
-router.delete("/:id",deleteOrderByID);
+router.patch("/:orderId", UpdatePayment);
+router.post("/", addNewOrder);
+router.get("/", getAllOrders);
+router.get("/:email", getOrderByEmail);
+router.get("/details/:id", getOrderByDetailsID);
+router.delete("/:id", deleteOrderByID);
 
 module.exports = router;
