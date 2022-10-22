@@ -142,6 +142,30 @@ const updateUserByEmail = asyncHandler(async (req, res) => {
   }
 });
 
+//@description     Update user to admin
+//@route           PATCH /api/user/make-admin/:email
+//@access          Private
+
+const makeAdmin = asyncHandler(async (req, res) => {
+  try {
+    const email = req.params.email;
+    const filter = { email };
+    const { isAdmin } =
+      req.body;
+    const options = { upsert: true };
+    const updateDoc = {
+      $set: {
+        isAdmin
+      },
+    };
+    const result = await User.updateOne(filter, updateDoc, options);
+    res.status(201).send(result);
+  } catch (error) {
+    return res.send({ message: "Data not found" });
+  }
+});
+
+
 module.exports = {
   registerUser,
   authUser,
@@ -150,4 +174,5 @@ module.exports = {
   deleteUserByID,
   updateUserByEmail,
   getUserById,
+  makeAdmin,
 };
