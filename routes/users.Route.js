@@ -19,6 +19,7 @@ router.get("/", getAllUser);
 router.get("/:email", getUserById);
 router.patch("/:email", updateUserByEmail);
 router.patch("/make-admin/:email", makeAdmin);
+router.patch("/remove-admin/:email", makeAdmin);
 router.delete("/:id", deleteUserByID);
 
 module.exports = router;
