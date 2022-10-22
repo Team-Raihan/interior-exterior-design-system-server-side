@@ -7,6 +7,7 @@ const {
   deleteUserByID,
   updateUserByEmail,
   getUserById,
+  makeAdmin,
 } = require("../controllers/user.Controllers");
 
 const router = express.Router();
@@ -17,6 +18,7 @@ router.get("/admin/:email", verifyAdmin);
 router.get("/", getAllUser);
 router.get("/:email", getUserById);
 router.patch("/:email", updateUserByEmail);
+router.patch("/make-admin/:email", makeAdmin);
 router.delete("/:id", deleteUserByID);
 
 module.exports = router;
